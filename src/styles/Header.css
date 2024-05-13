@@ -1,0 +1,52 @@
+﻿.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #00a2fc; /* Adjust background color if needed */
+}
+
+.logo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align logo to the left */
+    font-size: 1.5em;
+    color: #ffffff;
+}
+
+.logo img {
+    height: 75px; /* Control the size of your logo */
+    margin-right: 10px; /* Space between logo image and text */
+}
+
+.nav {
+    flex: 2; /* Adjust size proportionally */
+    display: flex;
+    justify-content: flex-end; /* Align navigation to the right */
+}
+
+.navLink {
+    padding: 10px; /* More clickable area */
+    margin-right: 20px; /* Space between links */
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px; /* Larger font size */
+}
+
+.navLink:hover {
+    text-decoration: underline;
+}
+
+.signUpButton {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signUpButton:hover {
+    background-color: darkblue;
+}

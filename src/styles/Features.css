@@ -1,0 +1,31 @@
+﻿.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    flex-wrap: wrap;
+    background-color: #012761; /* White background */
+}
+
+.feature {
+    width: 30%; /* Each feature takes up 30% of the container width */
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    margin: 10px;
+    text-align: center;
+    position: relative; /* Needed for absolute positioning inside */
+    background-color: #08576b; /* Light background for the entire feature box */
+}
+
+.featureImage {
+    width: 100%; /* Make image responsive */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.feature h3 {
+    color: #fffdfd; /* Dark text for heading */
+}
+
+.feature p {
+    color: #a5a3a3; /* Lighter text for description */
+}
