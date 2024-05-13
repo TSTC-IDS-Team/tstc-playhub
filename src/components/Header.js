@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <header className="header">
             <div className="logo">
-                <img src="/images/tstcplayhub.png" alt="TSTC Playhub Logo" />
+                <img src={process.env.PUBLIC_URL + "/images/tstcplayhub.png"} alt="TSTC Playhub Logo" />
                 TSTC PLAYHUB
             </div>
             <nav className="nav">
