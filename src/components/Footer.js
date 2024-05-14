@@ -4,7 +4,7 @@ import "../styles/Footer.css"
 const Footer = () => {
     return (
         <footer className="footer  section-gradient-about ">
-            <p>Copyright TSTC 2024</p>
+            <p> © 2024 Texas State Technical College.</p>
         </footer>
     );
 }
