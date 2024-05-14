@@ -13,7 +13,7 @@ const Hero = () => {
                     videoElement.style.opacity = '1';
                     videoElement.currentTime = 0; // Reset video to the start
                     videoElement.play(); // Ensure it plays again smoothly
-                }, 1000); // Matches the transition time in CSS
+                }, 100); // Matches the transition time in CSS
             };
 
             videoElement.addEventListener('ended', handleVideoLoop);
@@ -26,7 +26,7 @@ const Hero = () => {
     return (
         <div className="hero">
             <video autoPlay muted ref={videoRef} className="videoBackground">
-                <source src={process.env.PUBLIC_URL + "/videos/HMDVideo.mp4"} type="video/mp4" />
+                <source src={process.env.PUBLIC_URL + "/videos/ManInHMDAI.mp4"} type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
             <div className="content">
