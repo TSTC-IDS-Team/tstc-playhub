@@ -1,67 +1,43 @@
 ﻿.hero {
     position: relative;
-    width: 100%;
-    height: 100vh;
+    height: 1600px; /* Set to desired height */
     overflow: hidden;
 }
 
-.imageBackground {
+.videoBackground {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    object-fit: cover;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
 }
-
-.imageBackground img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensure the image covers the area without stretching */
-    object-position: center; /* Center the image */
-}
-
 
 .content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    z-index: 30; /* Above the video */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white; /* Text color that stands out over the video */
     text-align: center;
-    z-index: 1;
-    color: white;
-}
-
-.contentBox {
-    background: rgba(0, 0, 0, 0.6); /* Translucent black background */
-    padding: 20px;
-    border-radius: 10px;
-}
-
-h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-}
-
-p {
-    font-size: 1.5em;
-    margin-bottom: 40px;
 }
 
 .ctaButton {
-    background-color: #ff6600;
-    color: white;
+    margin-top: 20px;
     padding: 10px 20px;
-    font-size: 1.2em;
+    background-color: #ff0000; /* TSTC blue */
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 16px;
 }
 
 .ctaButton:hover {
-    background-color: #cc5200;
+    background-color: #8b0000;
 }
