@@ -1,0 +1,15 @@
+.footer {
+    text-align: center;
+    padding: 10px;
+    color: #ffffff;
+    background-color: #230837;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Gradient background for the about section with adjusted color stops */
+.section-gradient-about {
+    background: linear-gradient(to bottom, #1f3a5d 0%, #1f395d 10%, #250d37 30%, #250d37 100%);
+    padding: 20px;
+    
+}

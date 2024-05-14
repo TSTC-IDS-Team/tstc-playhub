@@ -6,6 +6,13 @@
     background-color: #012761; /* White background */
 }
 
+/* Gradient background for the feature section */
+.section-gradient {
+    background: linear-gradient(to bottom, #1e3a5f, #020202);
+    
+    color: white;
+}
+
 .feature {
     width: 30%; /* Each feature takes up 30% of the container width */
     padding: 20px;

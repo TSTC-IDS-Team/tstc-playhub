@@ -32,7 +32,7 @@ const Features = () => {
     ];
 
     return (
-        <div className="features">
+        <div className="features section-gradient">
             {features.map(feature => <Feature key={feature.title} {...feature} />)}
         </div>
     );
