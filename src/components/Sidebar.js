@@ -1,19 +1,33 @@
 import React from 'react';
-import '../styles/Sidebar.css'; // Create a separate CSS file for the sidebar styles
+import { Link, useMatch } from 'react-router-dom';
+import '../styles/Sidebar.css';
 
 const Sidebar = () => {
+    const match = useMatch("/dashboard/*");
+
     return (
         <aside className="sidebar">
             <div className="logo">TSTC_PlayDash</div>
             <nav className="nav">
                 <ul>
-                    <li className="nav-item active">Home</li>
-                    <li className="nav-item">Students</li>
-                    <li className="nav-item">Classes</li>
-                    <li className="nav-item">Records</li>
-                    <li className="nav-item">Statistics</li>
-                    <li className="nav-item">Settings</li>
-                    <li className="nav-item">Staff Room</li>
+                    <li className={`nav-item ${match?.pathname === "/dashboard/" ? 'active' : ''}`}>
+                        <Link to="/dashboard/">Home</Link>
+                    </li>
+                    <li className={`nav-item ${match?.pathname === "/dashboard/my-games" ? 'active' : ''}`}>
+                        <Link to="/dashboard/my-games">My Games</Link>
+                    </li>
+                    <li className={`nav-item ${match?.pathname === "/dashboard/browse-games" ? 'active' : ''}`}>
+                        <Link to="/dashboard/browse-games">Browse Games</Link>
+                    </li>
+                    <li className={`nav-item ${match?.pathname === "/dashboard/statistics" ? 'active' : ''}`}>
+                        <Link to="/dashboard/statistics">Statistics</Link>
+                    </li>
+                    <li className={`nav-item ${match?.pathname === "/dashboard/settings" ? 'active' : ''}`}>
+                        <Link to="/dashboard/settings">Settings</Link>
+                    </li>
+                    <li className={`nav-item ${match?.pathname === "/dashboard/logout" ? 'active' : ''}`}>
+                        <Link to="/dashboard/logout">Logout</Link>
+                    </li>
                 </ul>
             </nav>
             <div className="sign-out">Sign Out</div>

@@ -25,7 +25,13 @@
     color: white;
 }
 
-.nav-item:hover, .nav-item.active {
+.nav-item a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-item.active,
+.nav-item:hover {
     background-color: #3e4f61;
     border-radius: 5px;
 }
