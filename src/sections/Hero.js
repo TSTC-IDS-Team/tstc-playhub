@@ -39,10 +39,6 @@ const Hero = () => {
                     <button className="ctaButton">Get Started</button>
                 </div>
             </section>
-            <section className="additional-content">
-                <h2>More Content</h2>
-                <p>This is more content below the hero section that should be scrollable.</p>
-            </section>
         </div>
     );
 }
