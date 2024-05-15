@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import FAQ from "./pages/FAQ";
 
 import InstructorDashboard from "./pages/InstructorDashboard";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/*" element={<InstructorDashboard />} />
+                    <Route path="/signin" element={<SignIn />} />
+                    <Route path="/signup" element={<SignUp />} />
                 </Routes>
                 <Footer />
             </div>

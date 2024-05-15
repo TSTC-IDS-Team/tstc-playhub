@@ -1,52 +1,49 @@
 ﻿.header {
+    background-color: #333;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #00a2fc; /* Adjust background color if needed */
+    color: white;
 }
 
 .logo {
-    flex: 1;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Align logo to the left */
-    font-size: 1.5em;
-    color: #ffffff;
 }
 
 .logo img {
-    height: 75px; /* Control the size of your logo */
-    margin-right: 10px; /* Space between logo image and text */
+    height: 40px;
+    margin-right: 10px;
 }
 
 .nav {
-    flex: 2; /* Adjust size proportionally */
     display: flex;
-    justify-content: flex-end; /* Align navigation to the right */
+    align-items: center;
 }
 
 .navLink {
-    padding: 10px; /* More clickable area */
-    margin-right: 20px; /* Space between links */
+    margin: 0 10px;
+    color: white;
     text-decoration: none;
-    color: #ffffff;
-    font-size: 16px; /* Larger font size */
 }
 
 .navLink:hover {
     text-decoration: underline;
 }
 
-.signUpButton {
-    padding: 10px 20px;
-    background-color: blue;
+.signInButton, .logoutButton {
+    background-color: #007bff;
     color: white;
     border: none;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 10px;
 }
 
-.signUpButton:hover {
-    background-color: darkblue;
+.signInButton:hover, .logoutButton:hover {
+    background-color: #0056b3;
 }
