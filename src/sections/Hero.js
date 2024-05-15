@@ -26,7 +26,7 @@ const Hero = () => {
     return (
         <div className="hero">
             <video autoPlay muted ref={videoRef} className="videoBackground">
-                <source src={process.env.PUBLIC_URL + "/videos/new_HMD.mp4"} type="video/mp4" />
+                <source src={process.env.PUBLIC_URL + "/videos/New_HMD.mp4"} type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
             <div className="content">
