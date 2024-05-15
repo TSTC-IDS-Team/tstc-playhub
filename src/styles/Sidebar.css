@@ -1,0 +1,37 @@
+.sidebar {
+    width: 250px;
+    background-color: #2d3e50;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-item {
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: #3e4f61;
+    border-radius: 5px;
+}
+
+.sign-out {
+    cursor: pointer;
+    color: #ff4b5c;
+    text-align: center;
+}
