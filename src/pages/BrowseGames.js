@@ -1,5 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import LoadingSpinner from '../components/LoadingSpinner';
 import '../styles/BrowseGames.css';
 
 const BrowseGames = () => {
@@ -83,7 +84,7 @@ const BrowseGames = () => {
         try {
             setProcessingGameId(gameId);
             const res = await axios.post(
-                `https://tstc-playhub-backend.onrender.com/api/games/unlink`,
+                'https://tstc-playhub-backend.onrender.com/api/games/unlink',
                 { gameId },
                 {
                     headers: {
@@ -106,7 +107,7 @@ const BrowseGames = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <LoadingSpinner />;
     }
 
     if (error) {
@@ -122,6 +123,9 @@ const BrowseGames = () => {
                         <div className="game-card" key={game._id}>
                             <h3>{game.title}</h3>
                             {game.genre && <p>Genre: {game.genre}</p>}
+                            <a href={game.url} target="_blank" rel="noopener noreferrer">
+                                <button>Play Game</button>
+                            </a>
                             {isGameLinked(game._id) ? (
                                 <button
                                     onClick={() => unlinkGame(game._id)}

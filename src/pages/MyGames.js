@@ -4,29 +4,31 @@ import config from '../Config';
 import '../styles/MyGames.css';
 
 const MyGames = () => {
-    const [games, setGames] = useState([]);
+    const [myGames, setMyGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            fetchGames(token);
+            fetchMyGames(token);
+        } else {
+            setLoading(false);
         }
     }, []);
 
-    const fetchGames = async (token) => {
+    const fetchMyGames = async (token) => {
         try {
-            const res = await axios.get('https://tstc-playhub-backend.onrender.com/api/games/my-games', {
+            const res = await axios.get(`${config.apiUrl}/games/my-games`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setGames(res.data.games);
+            setMyGames(res.data.games);
             setLoading(false);
         } catch (err) {
-            console.error('Error fetching games:', err);
-            setError('Failed to fetch games');
+            console.error('Error fetching my games:', err);
+            setError('Failed to fetch my games');
             setLoading(false);
         }
     };
@@ -42,17 +44,20 @@ const MyGames = () => {
     return (
         <div className="my-games">
             <h2>My Games</h2>
-            {games.length > 0 ? (
-                <ul>
-                    {games.map((game) => (
-                        <li key={game._id}>
+            {myGames.length > 0 ? (
+                <div className="games-grid">
+                    {myGames.map((game) => (
+                        <div className="game-card" key={game._id}>
                             <h3>{game.title}</h3>
                             {game.genre && <p>Genre: {game.genre}</p>}
-                        </li>
+                            <a href={game.url} target="_blank" rel="noopener noreferrer">
+                                <button>Play Game</button>
+                            </a>
+                        </div>
                     ))}
-                </ul>
+                </div>
             ) : (
-                <p>No games available</p>
+                <p>No games linked yet</p>
             )}
         </div>
     );

@@ -9,6 +9,7 @@ import Statistics from './Statistics';
 import Settings from './Settings';
 
 import '../styles/InstructorDashboard.css';
+import CreateGame from "./CreateGame";
 
 const Dashboard = () => {
     const match = useMatch("/dashboard/*");
@@ -24,7 +25,7 @@ const Dashboard = () => {
                     <Route path={`${match?.pathnameBase}/browse-games`} element={<BrowseGames />} />
                     <Route path={`${match?.pathnameBase}/statistics`} element={<Statistics />} />
                     <Route path={`${match?.pathnameBase}/settings`} element={<Settings />} />
-                    
+                    <Route path={`${match?.pathnameBase}/create-game`} element={<CreateGame />} />
                 </Routes>
             </main>
         </div>
