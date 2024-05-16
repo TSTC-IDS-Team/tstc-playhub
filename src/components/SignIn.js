@@ -13,7 +13,7 @@ const SignIn = ({ closeModal, setAuth, fetchUserInfo }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${config.apiUrl}/auth/login`, { email, password });
+            const res = await axios.post(`${config.apiUrl}/auth/signin`, { email, password });
             setMessage('Sign-in successful!');
             const token = res.data.token;
             localStorage.setItem('token', token); // Store token in local storage

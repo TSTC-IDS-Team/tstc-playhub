@@ -17,9 +17,10 @@ const DashboardHome = () => {
         try {
             const res = await axios.get(`${config.apiUrl}/auth/user`, {
                 headers: {
-                    'x-auth-token': token,
+                    Authorization: `Bearer ${token}`,
                 },
             });
+            console.log(res);
             setUserInfo(res.data);
         } catch (err) {
             console.error(err);
@@ -31,7 +32,7 @@ const DashboardHome = () => {
             <section className="welcome-section">
                 {userInfo && (
                     <>
-                        <h2>Welcome back, {userInfo.firstName} {userInfo.lastName}</h2>
+                        <h2>Welcome back, {userInfo.userName}</h2>
                         <p>You have 27 new students added to your domain. Please reach out to the Head Teacher if you want them excluded from your domain.</p>
                     </>
                 )}

@@ -1,0 +1,27 @@
+﻿.my-games {
+    padding: 20px;
+}
+
+.my-games h2 {
+    margin-bottom: 20px;
+}
+
+.my-games ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.my-games li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.my-games li h3 {
+    margin: 0;
+}
+
+.my-games li p {
+    margin: 5px 0 0;
+}
