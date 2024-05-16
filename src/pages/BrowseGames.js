@@ -12,7 +12,7 @@ const BrowseGames = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            fetchGames(token);
+            fetchGames();
             fetchUserGames(token);
         } else {
             setLoading(false);
@@ -82,13 +82,13 @@ const BrowseGames = () => {
 
         try {
             setProcessingGameId(gameId);
-            const res = await axios.delete(
+            const res = await axios.post(
                 `https://tstc-playhub-backend.onrender.com/api/games/unlink`,
+                { gameId },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
-                    data: { gameId },
                 }
             );
             alert('Game unlinked successfully!');
