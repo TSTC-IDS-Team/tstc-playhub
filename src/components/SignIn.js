@@ -22,7 +22,7 @@ const SignIn = ({ closeModal, setAuth, fetchUserInfo }) => {
             closeModal();
         } catch (err) {
             setMessage('Sign-in failed!');
-            console.error(err);
+            console.error('Error during sign-in:', err);
         }
     };
 

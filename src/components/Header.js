@@ -23,12 +23,12 @@ const Header = () => {
         try {
             const res = await axios.get(`${config.apiUrl}/auth/user`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
             });
             setUserInfo(res.data);
         } catch (err) {
-            console.error(err);
+            console.error('Error fetching user info:', err);
         }
     };
 
@@ -58,7 +58,7 @@ const Header = () => {
                 {isAuthenticated && <Link to="/dashboard" className="navLink">Dashboard</Link>}
                 {isAuthenticated ? (
                     <>
-                        <span className="welcomeMessage">Welcome, {userInfo?.firstName} {userInfo?.lastName}</span>
+                        <span className="welcomeMessage">Welcome, {userInfo?.userName}</span>
                         <button className="logoutButton" onClick={handleLogout}>Logout</button>
                     </>
                 ) : (
