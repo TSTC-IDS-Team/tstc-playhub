@@ -23,7 +23,7 @@ const Header = () => {
         try {
             const res = await axios.get(`${config.apiUrl}/auth/user`, {
                 headers: {
-                    'x-auth-token': token,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
             setUserInfo(res.data);
