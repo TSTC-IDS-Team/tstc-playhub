@@ -1,10 +1,10 @@
 ﻿import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/SignIn.css';
-import SignUp from './SignUp'; // Ensure this is correctly imported
+import SignUp from './SignUp';
 import config from '../Config'; // Import config
 
-const SignIn = ({ closeModal, setAuth }) => {
+const SignIn = ({ closeModal, setAuth, fetchUserInfo }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -17,6 +17,7 @@ const SignIn = ({ closeModal, setAuth }) => {
             setMessage('Sign-in successful!');
             localStorage.setItem('token', res.data.token); // Store token in local storage
             setAuth(true); // Update authentication status
+            fetchUserInfo(res.data.token); // Fetch user info
             closeModal();
         } catch (err) {
             setMessage('Sign-in failed!');
