@@ -7,13 +7,40 @@ import '../styles/CreateGame.css';
 const CreateGame = () => {
     const [title, setTitle] = useState('');
     const [genre, setGenre] = useState('');
-    const [variables, setVariables] = useState({});
+    const [engineType, setEngineType] = useState('unity');
+    const [variables, setVariables] = useState([{ key: '', value: '' }]);
     const [gameFiles, setGameFiles] = useState([]);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
     const handleFileChange = (e) => {
-        setGameFiles(e.target.files);
+        const files = Array.from(e.target.files);
+        const rootFolderName = files[0]?.webkitRelativePath?.split('/')[0]; // Get root folder name
+
+        const filesWithPaths = files.map(file => {
+            let relativePath = file.webkitRelativePath || file.name;
+            if (rootFolderName) {
+                relativePath = relativePath.replace(`${rootFolderName}/`, ''); // Remove root folder name
+            }
+            return { file, relativePath };
+        });
+        setGameFiles(filesWithPaths);
+    };
+
+    const handleAddVariable = () => {
+        setVariables([...variables, { key: '', value: '' }]);
+    };
+
+    const handleRemoveVariable = (index) => {
+        const newVariables = variables.filter((_, i) => i !== index);
+        setVariables(newVariables);
+    };
+
+    const handleVariableChange = (index, e) => {
+        const { name, value } = e.target;
+        const newVariables = [...variables];
+        newVariables[index][name] = value;
+        setVariables(newVariables);
     };
 
     const handleSubmit = async (e) => {
@@ -30,12 +57,30 @@ const CreateGame = () => {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('genre', genre);
-        formData.append('variables', JSON.stringify(variables));
-        Array.from(gameFiles).forEach(file => formData.append('gameFiles', file));
+        formData.append('engineType', engineType);
+        formData.append('variables', JSON.stringify(variables.reduce((acc, curr) => {
+            acc[curr.key] = curr.value;
+            return acc;
+        }, {})));
+        gameFiles.forEach(({ file, relativePath }) => {
+            formData.append('gameFiles', file);
+            formData.append('relativePaths', relativePath); // Append the relative path as a separate field
+        });
+
+        console.log('Form Data:', {
+            title,
+            genre,
+            engineType,
+            variables: JSON.stringify(variables.reduce((acc, curr) => {
+                acc[curr.key] = curr.value;
+                return acc;
+            }, {})),
+            gameFiles
+        });
 
         try {
             const res = await axios.post(
-                `${config.apiUrl}/games/create-game`,
+                `${config.apiUrl}/games/create-game-unity`,
                 formData,
                 {
                     headers: {
@@ -47,7 +92,8 @@ const CreateGame = () => {
             setMessage('Game created successfully!');
             setTitle('');
             setGenre('');
-            setVariables({});
+            setEngineType('unity');
+            setVariables([{ key: '', value: '' }]);
             setGameFiles([]);
         } catch (err) {
             console.error('Error creating game:', err);
@@ -77,6 +123,11 @@ const CreateGame = () => {
                         value={genre}
                         onChange={(e) => setGenre(e.target.value)}
                     />
+                    <select value={engineType} onChange={(e) => setEngineType(e.target.value)} required>
+                        <option value="unity">Unity</option>
+                        <option value="unreal">Unreal</option>
+                        <option value="construct3">Construct 3</option>
+                    </select>
                     <input
                         type="file"
                         webkitdirectory="true"
@@ -85,6 +136,31 @@ const CreateGame = () => {
                         multiple
                         required
                     />
+                    <div className="variables-section">
+                        <h4>Variables</h4>
+                        {variables.map((variable, index) => (
+                            <div key={index} className="variable">
+                                <input
+                                    type="text"
+                                    placeholder="Key"
+                                    name="key"
+                                    value={variable.key}
+                                    onChange={(e) => handleVariableChange(index, e)}
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Value"
+                                    name="value"
+                                    value={variable.value}
+                                    onChange={(e) => handleVariableChange(index, e)}
+                                    required
+                                />
+                                <button type="button" onClick={() => handleRemoveVariable(index)}>Remove</button>
+                            </div>
+                        ))}
+                        <button type="button" onClick={handleAddVariable}>Add Variable</button>
+                    </div>
                     <button type="submit">Create Game</button>
                 </form>
             )}

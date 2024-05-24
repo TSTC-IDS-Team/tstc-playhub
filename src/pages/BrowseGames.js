@@ -46,7 +46,7 @@ const BrowseGames = () => {
         }
     };
 
-    const linkGame = async (gameId) => {
+    const linkGame = async (gameId, engineType) => {
         const token = localStorage.getItem('token');
         if (!token) {
             alert('You need to be logged in to link a game.');
@@ -55,8 +55,9 @@ const BrowseGames = () => {
 
         try {
             setProcessingGameId(gameId);
+            const endpoint = engineType === 'unity' ? 'link-game-unity' : 'link-game-unreal';
             const res = await axios.post(
-                'https://tstc-playhub-backend.onrender.com/api/games/link',
+                `https://tstc-playhub-backend.onrender.com/api/games/${endpoint}`,
                 { gameId },
                 {
                     headers: {
@@ -135,7 +136,7 @@ const BrowseGames = () => {
                                 </button>
                             ) : (
                                 <button
-                                    onClick={() => linkGame(game._id)}
+                                    onClick={() => linkGame(game._id, game.engineType)} // Pass the engine type
                                     disabled={processingGameId === game._id}
                                 >
                                     {processingGameId === game._id ? 'Processing...' : 'Link Game'}

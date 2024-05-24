@@ -1,0 +1,26 @@
+.file-tree ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.file-tree li {
+    line-height: 1.5em;
+}
+
+.file-tree li::before {
+    content: '•';
+    margin-right: 10px;
+    color: #555;
+}
+
+.file-tree li.folder::before {
+    content: '📁';
+    margin-right: 10px;
+    color: #ffa500;
+}
+
+.file-tree li.file::before {
+    content: '📄';
+    margin-right: 10px;
+    color: #007bff;
+}
