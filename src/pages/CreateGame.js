@@ -80,7 +80,7 @@ const CreateGame = () => {
 
         try {
             const res = await axios.post(
-                `${config.apiUrl}/games/create-game-unity`,
+                `${config.apiUrl}/games/create-game`,
                 formData,
                 {
                     headers: {
