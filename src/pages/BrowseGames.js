@@ -17,103 +17,78 @@ const BrowseGames = () => {
             fetchUserGames(token);
         } else {
             setLoading(false);
+            setError('You must be logged in to view games.');
         }
     }, []);
 
     const fetchGames = async () => {
+        setLoading(true);
         try {
             const res = await axios.get('https://tstc-playhub-backend.onrender.com/api/games');
             setAllGames(res.data);
         } catch (err) {
             console.error('Error fetching games:', err);
             setError('Failed to fetch games');
+        } finally {
+            setLoading(false);
         }
     };
 
     const fetchUserGames = async (token) => {
+        setLoading(true);
         try {
             const res = await axios.get('https://tstc-playhub-backend.onrender.com/api/games/my-games', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { Authorization: `Bearer ${token}` },
             });
             setUserGames(res.data.games);
-            setLoading(false);
         } catch (err) {
             console.error('Error fetching user games:', err);
             setError('Failed to fetch user games');
+        } finally {
             setLoading(false);
         }
     };
 
-    const linkGame = async (gameId, engineType) => {
+    const handleLinkUnlinkGame = async (gameId, engineType, isLinking) => {
         const token = localStorage.getItem('token');
         if (!token) {
-            alert('You need to be logged in to link a game.');
+            alert('You need to be logged in to modify game links.');
             return;
         }
 
+        const action = isLinking ? 'link' : 'unlink';
+        if (!window.confirm(`Are you sure you want to ${action} this game?`)) {
+            return;
+        }
+
+        setProcessingGameId(gameId);
+
         try {
-            setProcessingGameId(gameId);
-            const endpoint = engineType === 'unity' ? 'link-game-unity' : 'link-game-unreal';
-            const res = await axios.post(
-                `https://tstc-playhub-backend.onrender.com/api/games/${endpoint}`,
-                { gameId },
+            await axios.post(
+                'https://tstc-playhub-backend.onrender.com/api/games/link', // Consolidated endpoint for linking and unlinking
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    gameId,
+                    link: isLinking, // true for linking, false for unlinking
+                    engineType // Include engine type if necessary for the backend logic
+                },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
                 }
             );
-            alert('Game linked successfully!');
+            alert(`Game ${action}ed successfully!`);
             fetchUserGames(token); // Refresh the user's games list
         } catch (err) {
-            console.error('Error linking game:', err);
-            alert('Failed to link game.');
+            console.error(`Error ${action}ing game:`, err);
+            alert(`Failed to ${action} game.`);
         } finally {
             setProcessingGameId(null);
         }
     };
 
-    const unlinkGame = async (gameId) => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            alert('You need to be logged in to unlink a game.');
-            return;
-        }
+    const isGameLinked = (gameId) => userGames.some((game) => game._id === gameId);
 
-        try {
-            setProcessingGameId(gameId);
-            const res = await axios.post(
-                'https://tstc-playhub-backend.onrender.com/api/games/unlink',
-                { gameId },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            alert('Game unlinked successfully!');
-            fetchUserGames(token); // Refresh the user's games list
-        } catch (err) {
-            console.error('Error unlinking game:', err);
-            alert('Failed to unlink game.');
-        } finally {
-            setProcessingGameId(null);
-        }
-    };
-
-    const isGameLinked = (gameId) => {
-        return userGames.some(game => game._id === gameId);
-    };
-
-    if (loading) {
-        return <LoadingSpinner />;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
-    }
+    if (loading) return <LoadingSpinner />;
+    if (error) return <div className="error-message">{error}</div>;
 
     return (
         <div className="browse-games">
@@ -129,14 +104,14 @@ const BrowseGames = () => {
                             </a>
                             {isGameLinked(game._id) ? (
                                 <button
-                                    onClick={() => unlinkGame(game._id)}
+                                    onClick={() => handleLinkUnlinkGame(game._id, game.engineType, false)}
                                     disabled={processingGameId === game._id}
                                 >
                                     {processingGameId === game._id ? 'Processing...' : 'Unlink Game'}
                                 </button>
                             ) : (
                                 <button
-                                    onClick={() => linkGame(game._id, game.engineType)} // Pass the engine type
+                                    onClick={() => handleLinkUnlinkGame(game._id, game.engineType, true)}
                                     disabled={processingGameId === game._id}
                                 >
                                     {processingGameId === game._id ? 'Processing...' : 'Link Game'}
