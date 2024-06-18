@@ -10,6 +10,7 @@ const CreateGame = () => {
     const [engineType, setEngineType] = useState('unity');
     const [variables, setVariables] = useState([{ key: '', value: '' }]);
     const [gameFiles, setGameFiles] = useState([]);
+    const [imageFile, setImageFile] = useState(null); // New state for image file
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -25,6 +26,10 @@ const CreateGame = () => {
             return { file, relativePath };
         });
         setGameFiles(filesWithPaths);
+    };
+
+    const handleImageChange = (e) => {
+        setImageFile(e.target.files[0]);
     };
 
     const handleAddVariable = () => {
@@ -67,6 +72,10 @@ const CreateGame = () => {
             formData.append('relativePaths', relativePath); // Append the relative path as a separate field
         });
 
+        if (imageFile) {
+            formData.append('imageFile', imageFile); // Append the image file to the form data
+        }
+
         console.log('Form Data:', {
             title,
             genre,
@@ -75,7 +84,8 @@ const CreateGame = () => {
                 acc[curr.key] = curr.value;
                 return acc;
             }, {})),
-            gameFiles
+            gameFiles,
+            imageFile
         });
 
         try {
@@ -95,6 +105,7 @@ const CreateGame = () => {
             setEngineType('unity');
             setVariables([{ key: '', value: '' }]);
             setGameFiles([]);
+            setImageFile(null); // Reset image file state
         } catch (err) {
             console.error('Error creating game:', err);
             setMessage('Failed to create game.');
@@ -128,6 +139,7 @@ const CreateGame = () => {
                         <option value="unreal">Unreal</option>
                         <option value="construct3">Construct 3</option>
                     </select>
+                    <label htmlFor="gameFiles">Game Files</label>
                     <input
                         type="file"
                         webkitdirectory="true"
@@ -161,6 +173,13 @@ const CreateGame = () => {
                         ))}
                         <button type="button" onClick={handleAddVariable}>Add Variable</button>
                     </div>
+                    <label htmlFor="imageFile">Title Image</label>
+                    <input
+                        type="file"
+                        onChange={handleImageChange}
+                        accept="image/*"
+                        required
+                    />
                     <button type="submit">Create Game</button>
                 </form>
             )}

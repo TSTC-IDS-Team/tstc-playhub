@@ -1,26 +1,78 @@
-.file-tree ul {
-    list-style-type: none;
-    padding-left: 20px;
+.create-game {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.file-tree li {
-    line-height: 1.5em;
+.create-game h2 {
+    margin-bottom: 20px;
 }
 
-.file-tree li::before {
-    content: '•';
-    margin-right: 10px;
-    color: #555;
+.create-game form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.file-tree li.folder::before {
-    content: '📁';
-    margin-right: 10px;
-    color: #ffa500;
+.create-game input,
+.create-game select,
+.create-game button {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-.file-tree li.file::before {
-    content: '📄';
-    margin-right: 10px;
-    color: #007bff;
+.create-game label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.create-game .variables-section {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px 0;
+}
+
+.create-game .variable {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.create-game .variable input {
+    flex: 1;
+    margin-right: 5px;
+}
+
+.create-game .variable button {
+    flex: 0;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.create-game .variable button:hover {
+    background-color: #d32f2f;
+}
+
+.create-game button[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-game button[type="submit"]:hover {
+    background-color: #388e3c;
+}
+
+.create-game input[type="file"] {
+    padding: 0;
+    border: none;
 }

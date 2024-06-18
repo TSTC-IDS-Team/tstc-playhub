@@ -33,6 +33,12 @@ const MyGames = () => {
         }
     };
 
+    const copyToClipboard = (url) => {
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Game URL copied to clipboard');
+        });
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -48,11 +54,13 @@ const MyGames = () => {
                 <div className="games-grid">
                     {myGames.map((game) => (
                         <div className="game-card" key={game._id}>
+                            {game.image && <img src={game.image} alt={game.title} className="game-image" />}
                             <h3>{game.title}</h3>
                             {game.genre && <p>Genre: {game.genre}</p>}
                             <a href={game.url} target="_blank" rel="noopener noreferrer">
                                 <button>Play Game</button>
                             </a>
+                            <button onClick={() => copyToClipboard(game.url)}>Copy URL</button>
                         </div>
                     ))}
                 </div>

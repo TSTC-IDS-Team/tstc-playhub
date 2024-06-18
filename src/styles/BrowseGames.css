@@ -46,3 +46,41 @@
 .game-card button:disabled {
     background-color: #cccccc;
 }
+
+
+/* Add these styles to MyGames.css and BrowseGames.css */
+
+.games-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.game-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+}
+
+.game-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.game-card h3 {
+    margin: 10px 0;
+}
+
+.game-card p {
+    margin: 5px 0;
+}
+
+.game-card button {
+    margin: 5px;
+}

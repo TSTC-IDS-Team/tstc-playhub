@@ -1,27 +1,96 @@
 ﻿.my-games {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .my-games h2 {
     margin-bottom: 20px;
 }
 
-.my-games ul {
-    list-style-type: none;
-    padding: 0;
+.games-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
 }
 
-.my-games li {
+.game-card {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 20px;
     margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: center;
+}
+
+.game-image {
+    max-width: 100%;
+    height: auto;
     border-radius: 5px;
 }
 
-.my-games li h3 {
-    margin: 0;
+.game-card h3 {
+    margin: 10px 0;
 }
 
-.my-games li p {
-    margin: 5px 0 0;
+.game-card p {
+    margin: 5px 0 10px 0;
+}
+
+.game-card button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.game-card button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Add these styles to MyGames.css and BrowseGames.css */
+
+.games-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.game-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+}
+
+.game-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.game-card h3 {
+    margin: 10px 0;
+}
+
+.game-card p {
+    margin: 5px 0;
+}
+
+.game-card button {
+    margin: 5px;
 }
