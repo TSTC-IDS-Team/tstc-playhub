@@ -28,7 +28,7 @@ const Hero = () => {
             <section className="hero">
                 <video ref={videoRef} className="background-video" autoPlay loop muted>
                     <source
-                        src="https://hero-video-bucket.s3.amazonaws.com/New_HMD.mp4"
+                        src="https://hero-video-bucket.s3.amazonaws.com/ManInHMDAI.mp4"
                         type="video/mp4"/>
                     Your browser does not support the video tag.
                 </video>

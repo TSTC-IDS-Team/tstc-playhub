@@ -7,9 +7,10 @@ import MyGames from './MyGames';
 import BrowseGames from './BrowseGames';
 import Statistics from './Statistics';
 import Settings from './Settings';
+import CreateGame from './CreateGame';
+import EditVariables from './EditVariables';  // Import the new component
 
 import '../styles/InstructorDashboard.css';
-import CreateGame from "./CreateGame";
 
 const Dashboard = () => {
     const match = useMatch("/dashboard/*");
@@ -26,6 +27,7 @@ const Dashboard = () => {
                     <Route path={`${match?.pathnameBase}/statistics`} element={<Statistics />} />
                     <Route path={`${match?.pathnameBase}/settings`} element={<Settings />} />
                     <Route path={`${match?.pathnameBase}/create-game`} element={<CreateGame />} />
+                    <Route path={`${match?.pathnameBase}/edit-variables/:gameId`} element={<EditVariables />} /> {/* Add this line */}
                 </Routes>
             </main>
         </div>

@@ -1,0 +1,72 @@
+﻿.edit-variables {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-variables h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.variables-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.variable-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.variable-field label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.variable-field input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .edit-variables {
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .variable-field input {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}

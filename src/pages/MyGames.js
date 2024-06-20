@@ -2,11 +2,13 @@
 import axios from 'axios';
 import config from '../Config';
 import '../styles/MyGames.css';
+import { useNavigate } from 'react-router-dom';
 
 const MyGames = () => {
     const [myGames, setMyGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -39,6 +41,10 @@ const MyGames = () => {
         });
     };
 
+    const handleEditVariables = (gameId) => {
+        navigate(`/dashboard/edit-variables/${gameId}`);
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -61,6 +67,7 @@ const MyGames = () => {
                                 <button>Play Game</button>
                             </a>
                             <button onClick={() => copyToClipboard(game.url)}>Copy URL</button>
+                            <button onClick={() => handleEditVariables(game._id)}>Edit Variables</button>
                         </div>
                     ))}
                 </div>
