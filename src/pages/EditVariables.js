@@ -7,32 +7,33 @@ import '../styles/EditVariables.css';
 const EditVariables = () => {
     const { gameId } = useParams(); // Ensure this is the correct _id
     const [variables, setVariables] = useState({});
+    const [id, setId] = useState(""); // Correct initialization
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            fetchGameVariables(token);
+        const userData = getUserData();
+        if (userData) {
+            // Find the game with the matching _id field
+            const game = userData.games.find(gameEntry => gameEntry.game === gameId);
+            if (game) {
+                setId(game._id);
+                console.log(id);
+                setVariables(game.variables || {});
+                setLoading(false);
+            } else {
+                setError('Game not found');
+                setLoading(false);
+            }
         } else {
+            setError('User data not found');
             setLoading(false);
         }
-    }, [gameId]); // Add gameId to the dependency array
+    }, [gameId]);
 
-    const fetchGameVariables = async (token) => {
-        try {
-            const res = await axios.get(`${config.apiUrl}/games/${gameId}/variables`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            setVariables(res.data.variables);
-            setLoading(false);
-        } catch (err) {
-            console.error('Error fetching game variables:', err);
-            setError('Failed to fetch game variables');
-            setLoading(false);
-        }
+    const getUserData = () => {
+        const data = localStorage.getItem('userInfo');
+        return data ? JSON.parse(data) : null;
     };
 
     const handleChange = (e) => {
@@ -46,7 +47,7 @@ const EditVariables = () => {
         const token = localStorage.getItem('token');
         try {
             for (const [key, value] of Object.entries(variables)) {
-                await axios.put(`${config.apiUrl}/games/${gameId}/variables/${key}`, { value }, {
+                await axios.post(`${config.apiUrl}/games/games/${id}/variables`, { key, value }, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',

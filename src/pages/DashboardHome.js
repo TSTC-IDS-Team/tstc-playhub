@@ -9,7 +9,16 @@ const DashboardHome = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            fetchUserInfo(token);
+            const storedUserInfo = getUserData();
+            if (storedUserInfo) {
+                setUserInfo(storedUserInfo);
+            } else {
+                fetchAndStoreUserData(token).then((data) => {
+                    if (data) {
+                        setUserInfo(data);
+                    }
+                });
+            }
         }
     }, []);
 
@@ -21,9 +30,34 @@ const DashboardHome = () => {
                 },
             });
             console.log(res);
+            localStorage.setItem('userInfo', JSON.stringify(res.data));
             setUserInfo(res.data);
         } catch (err) {
             console.error(err);
+        }
+    };
+
+    const storeUserData = (userData) => {
+        localStorage.setItem('userInfo', JSON.stringify(userData));
+    };
+
+    const getUserData = () => {
+        const data = localStorage.getItem('userInfo');
+        return data ? JSON.parse(data) : null;
+    };
+
+    const fetchAndStoreUserData = async (token) => {
+        try {
+            const res = await axios.get(`${config.apiUrl}/auth/user`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            storeUserData(res.data);
+            return res.data;
+        } catch (err) {
+            console.error('Error fetching user data:', err);
+            return null;
         }
     };
 

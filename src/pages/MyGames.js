@@ -1,6 +1,4 @@
 ﻿import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import config from '../Config';
 import '../styles/MyGames.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,29 +9,21 @@ const MyGames = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            fetchMyGames(token);
+        const userData = getUserData();
+        console.log('UserData:', userData);  // Debug log to see the structure of userData
+        if (userData) {
+            const games = userData.games.filter(gameEntry => gameEntry.game);  // Filter out entries with only _id
+            setMyGames(games);
+            setLoading(false);
         } else {
+            setError('User data not found');
             setLoading(false);
         }
     }, []);
 
-    const fetchMyGames = async (token) => {
-        try {
-            const res = await axios.get(`${config.apiUrl}/games/my-games`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            console.log('Fetched games:', res.data.games); // Debug log
-            setMyGames(res.data.games);
-            setLoading(false);
-        } catch (err) {
-            console.error('Error fetching my games:', err);
-            setError('Failed to fetch my games');
-            setLoading(false);
-        }
+    const getUserData = () => {
+        const data = localStorage.getItem('userInfo');
+        return data ? JSON.parse(data) : null;
     };
 
     const copyToClipboard = (url) => {
@@ -43,7 +33,7 @@ const MyGames = () => {
     };
 
     const handleEditVariables = (gameId) => {
-        console.log(`Navigating to edit variables for gameId: ${gameId}`); // Debug log
+        console.log(`Navigating to edit variables for gameId: ${gameId}`);  // Debug log
         navigate(`/dashboard/edit-variables/${gameId}`);
     };
 
@@ -60,18 +50,22 @@ const MyGames = () => {
             <h2>My Games</h2>
             {myGames.length > 0 ? (
                 <div className="games-grid">
-                    {myGames.map((game) => (
-                        <div className="game-card" key={game._id}>
-                            {game.image && <img src={game.image} alt={game.title} className="game-image" />}
-                            <h3>{game.title}</h3>
-                            {game.genre && <p>Genre: {game.genre}</p>}
-                            <a href={game.url} target="_blank" rel="noopener noreferrer">
-                                <button>Play Game</button>
-                            </a>
-                            <button onClick={() => copyToClipboard(game.url)}>Copy URL</button>
-                            <button onClick={() => handleEditVariables(game._id)}>Edit Variables</button>
-                        </div>
-                    ))}
+                    {myGames.map((gameEntry) => {
+                        const gameId = gameEntry.game;  // Extract the game ID
+                        const gameUrl = gameEntry.url;  // Extract the URL
+                        const gameTitle = gameEntry.variables?.WelcomeTitle || 'Untitled Game';  // Extract title from variables with fallback
+
+                        return (
+                            <div className="game-card" key={gameId}>
+                                <h3>{gameTitle}</h3>
+                                <a href={gameUrl} target="_blank" rel="noopener noreferrer">
+                                    <button>Play Game</button>
+                                </a>
+                                <button onClick={() => copyToClipboard(gameUrl)}>Copy URL</button>
+                                <button onClick={() => handleEditVariables(gameId)}>Edit Variables</button>
+                            </div>
+                        );
+                    })}
                 </div>
             ) : (
                 <p>No games linked yet</p>
@@ -81,3 +75,4 @@ const MyGames = () => {
 };
 
 export default MyGames;
+
