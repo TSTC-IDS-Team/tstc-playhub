@@ -26,6 +26,7 @@ const MyGames = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            console.log('Fetched games:', res.data.games); // Debug log
             setMyGames(res.data.games);
             setLoading(false);
         } catch (err) {
@@ -42,6 +43,7 @@ const MyGames = () => {
     };
 
     const handleEditVariables = (gameId) => {
+        console.log(`Navigating to edit variables for gameId: ${gameId}`); // Debug log
         navigate(`/dashboard/edit-variables/${gameId}`);
     };
 

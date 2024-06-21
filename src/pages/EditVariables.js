@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import '../styles/EditVariables.css';
 
 const EditVariables = () => {
-    const { gameId } = useParams();
+    const { gameId } = useParams(); // Ensure this is the correct _id
     const [variables, setVariables] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -17,7 +17,7 @@ const EditVariables = () => {
         } else {
             setLoading(false);
         }
-    }, []);
+    }, [gameId]); // Add gameId to the dependency array
 
     const fetchGameVariables = async (token) => {
         try {
@@ -45,12 +45,14 @@ const EditVariables = () => {
     const handleSave = async () => {
         const token = localStorage.getItem('token');
         try {
-            await axios.put(`${config.apiUrl}/games/${gameId}/variables`, variables, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+            for (const [key, value] of Object.entries(variables)) {
+                await axios.put(`${config.apiUrl}/games/${gameId}/variables/${key}`, { value }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+            }
             alert('Variables updated successfully');
         } catch (err) {
             console.error('Error updating variables:', err);
